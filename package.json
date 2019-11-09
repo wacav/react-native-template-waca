@@ -1,0 +1,46 @@
+{
+  "name": "waca-template",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "pod": "cd ios && pod install",
+    "clean:android": "cd android && ./gradlew clean",
+    "build:android": "npx jetify && cd android && ./gradlew assembleRelease"
+  },
+  "dependencies": {
+    "@react-navigation/core": "^5.0.0-alpha.21",
+    "@react-navigation/drawer": "^5.0.0-alpha.0",
+    "@react-navigation/native": "^5.0.0-alpha.15",
+    "@react-navigation/stack": "^5.0.0-alpha.20",
+    "@types/aes-js": "^3.1.0",
+    "aes-js": "^3.1.2",
+    "buffer": "^5.4.3",
+    "mobx": "^5.15.0",
+    "mobx-react": "^6.1.4",
+    "react": "16.9.0",
+    "react-native": "0.61.4",
+    "react-native-vector-icons": "^6.6.0",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/runtime": "^7.7.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "@types/react": "^16.9.11",
+    "@types/react-native": "^0.60.22",
+    "@types/styled-components": "^4.4.0",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.6.0",
+    "jest": "^24.9.0",
+    "jetifier": "^1.6.4",
+    "metro-react-native-babel-preset": "^0.57.0",
+    "react-test-renderer": "16.9.0",
+    "typescript": "^3.7.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
