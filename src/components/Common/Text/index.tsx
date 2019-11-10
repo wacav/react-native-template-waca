@@ -1,15 +1,15 @@
 import React, { useEffect, ReactNode } from 'react';
-import { TextStyle } from 'react-native';
+import { TextStyle, TextProps } from 'react-native';
 import styled from 'styled-components/native';
 
-type TextProps = {
+interface ITextProps extends TextProps {
   children?: ReactNode;
   style?: TextStyle;
   small?: boolean;
   big?: boolean;
-};
+}
 
-const Text = styled.Text<TextProps>`
+const Text = styled.Text<ITextProps>`
   font-size: ${props => (props.small ? 16 : props.big ? 24 : 20)};
 `;
 /**
@@ -18,7 +18,7 @@ const Text = styled.Text<TextProps>`
  * @big 24
  * @default 20
  */
-export default ({ children, style, small, big }: TextProps) => {
+export default ({ children, style, small, big }: ITextProps) => {
   useEffect(() => {}, []);
   return (
     <Text allowFontScaling={false} style={{ ...style }} small={small} big={big}>
