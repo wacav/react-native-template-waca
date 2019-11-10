@@ -1,28 +1,45 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
 import { NavigationNativeContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
 import theme from './utils/theme';
-import { encrypt, decrypt } from './utils/crypto';
+import Splash from './components/Splash';
+import { createStackNavigator } from '@react-navigation/stack';
+import { observer } from 'mobx-react';
+import { userStore } from './stores/User';
+import AuthNavi from './navigations/AuthNavi';
+const Stack = createStackNavigator();
 
-export default () => {
+export default observer(() => {
+  const [isLoaded, setLoaded] = useState(false);
   const preload = async () => {
-    const enc = encrypt('안녕하세요');
-    console.log(enc);
-    const dec = decrypt(enc);
-    console.log(dec);
+    try {
+      // Yello Box Disabled
+      if (__DEV__) {
+        console.disableYellowBox = true;
+      }
+      // user Login
+      await userStore.preLoad();
+      setLoaded(true);
+    } catch (error) {}
   };
   useEffect(() => {
     preload();
   }, []);
-  return (
+  return isLoaded && userStore.isLoggedIn !== null ? (
     <ThemeProvider theme={theme}>
       <NavigationNativeContainer>
         <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <Text allowFontScaling={false}>111</Text>
-        </SafeAreaView>
+        <Stack.Navigator headerMode={'none'}>
+          {userStore.isLoggedIn ? (
+            <Stack.Screen name={'Hello'} component={Splash} />
+          ) : (
+            <Stack.Screen name={'LoginNavi'} component={AuthNavi} />
+          )}
+        </Stack.Navigator>
       </NavigationNativeContainer>
     </ThemeProvider>
+  ) : (
+    <Splash />
   );
-};
+});
