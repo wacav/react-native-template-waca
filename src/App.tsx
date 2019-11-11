@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StatusBar } from 'react-native';
 import { NavigationNativeContainer } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components';
@@ -12,6 +12,7 @@ const Stack = createStackNavigator();
 
 export default observer(() => {
   const [isLoaded, setLoaded] = useState(false);
+
   const preload = async () => {
     try {
       // Yello Box Disabled
@@ -26,6 +27,7 @@ export default observer(() => {
       }, 2000);
     } catch (error) {}
   };
+
   useEffect(() => {
     preload();
   }, []);
@@ -33,7 +35,9 @@ export default observer(() => {
     <ThemeProvider theme={theme}>
       <NavigationNativeContainer>
         <StatusBar barStyle="dark-content" />
-        <Stack.Navigator headerMode={'none'}>
+        <Stack.Navigator
+          headerMode={'none'}
+          screenOptions={{ headerTitleAllowFontScaling: false, headerBackAllowFontScaling: false }}>
           {isLoaded && userStore.isLoggedIn !== null ? (
             userStore.isLoggedIn ? (
               <Stack.Screen name={'LoginNavi'} component={AuthNavi} />

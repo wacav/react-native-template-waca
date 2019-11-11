@@ -9,13 +9,14 @@ interface ITextProps extends TextProps {
 }
 
 const Text = styled.Text<ITextProps>`
-  font-size: ${props => (props.small ? 16 : props.big ? 24 : 20)};
+  font-size: ${props => (props.small ? 16 : props.big ? 24 : 18)};
+  color: #333;
 `;
 /**
  * Text Components
  * @small 16
  * @big 24
- * @default 20
+ * @default 18
  */
 export default ({ children, small, big, ...props }: ITextProps) => {
   useEffect(() => {}, []);
