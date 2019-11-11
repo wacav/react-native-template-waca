@@ -6,7 +6,7 @@ import theme from './utils/theme';
 import Splash from './components/Splash';
 import { createStackNavigator } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
-import { userStore } from './stores/User';
+import { userStore } from './stores/user';
 import AuthNavi from './navigations/AuthNavi';
 const Stack = createStackNavigator();
 
