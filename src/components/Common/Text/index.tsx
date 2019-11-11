@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 
 interface ITextProps extends TextProps {
   children?: ReactNode;
-  style?: TextStyle;
   small?: boolean;
   big?: boolean;
 }
@@ -18,10 +17,10 @@ const Text = styled.Text<ITextProps>`
  * @big 24
  * @default 20
  */
-export default ({ children, style, small, big }: ITextProps) => {
+export default ({ children, small, big, ...props }: ITextProps) => {
   useEffect(() => {}, []);
   return (
-    <Text allowFontScaling={false} style={{ ...style }} small={small} big={big}>
+    <Text allowFontScaling={false} small={small} big={big} {...props}>
       {children}
     </Text>
   );

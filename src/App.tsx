@@ -20,26 +20,31 @@ export default observer(() => {
       }
       // user Login
       await userStore.preLoad();
-      setLoaded(true);
+
+      setTimeout(() => {
+        setLoaded(true);
+      }, 2000);
     } catch (error) {}
   };
   useEffect(() => {
     preload();
   }, []);
-  return isLoaded && userStore.isLoggedIn !== null ? (
+  return (
     <ThemeProvider theme={theme}>
       <NavigationNativeContainer>
         <StatusBar barStyle="dark-content" />
         <Stack.Navigator headerMode={'none'}>
-          {userStore.isLoggedIn ? (
-            <Stack.Screen name={'Hello'} component={Splash} />
+          {isLoaded && userStore.isLoggedIn !== null ? (
+            userStore.isLoggedIn ? (
+              <Stack.Screen name={'LoginNavi'} component={AuthNavi} />
+            ) : (
+              <Stack.Screen name={'LoginNavi'} component={AuthNavi} />
+            )
           ) : (
-            <Stack.Screen name={'LoginNavi'} component={AuthNavi} />
+            <Stack.Screen name={'LoginNavi'} component={Splash} />
           )}
         </Stack.Navigator>
       </NavigationNativeContainer>
     </ThemeProvider>
-  ) : (
-    <Splash />
   );
 });
