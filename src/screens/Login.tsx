@@ -3,25 +3,25 @@ import Row from '../components/Common/Row';
 import Text from '../components/Common/Text';
 import { TouchableOpacity, TextInput } from 'react-native';
 import BorderInput from '../components/Input/BorderInput';
-
+import useForm from 'react-hook-form';
 export default ({ navigation }: { navigation: any }) => {
-  const [value, setValue] = useState('');
+  const { register, handleSubmit, setValue } = useForm();
 
+  const cccc = (a: any) => {
+    console.log(a);
+  };
   return (
     <>
       <Row>
         <BorderInput
-          value={value}
+          ref={register({ name: 'name1', required: true })}
           onChangeText={text => {
-            setValue(text);
+            setValue('name1', text, true);
           }}
         />
       </Row>
       <Row>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Join');
-          }}>
+        <TouchableOpacity onPress={handleSubmit(cccc)}>
           <Text>료근</Text>
         </TouchableOpacity>
       </Row>
