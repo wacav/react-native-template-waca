@@ -4,6 +4,7 @@ import Text from '../components/Common/Text';
 import { TouchableOpacity, TextInput } from 'react-native';
 import BorderInput from '../components/Input/BorderInput';
 import useForm from 'react-hook-form';
+
 export default ({ navigation }: { navigation: any }) => {
   const { register, handleSubmit, setValue } = useForm();
 
