@@ -28,7 +28,10 @@ const Input = styled.TextInput`
 `;
 
 export default forwardRef(
-  ({ value, containerStyle, labelStyle, secureTextEntry: secret, ...props }: IBorderInput, ref: React.Ref<any>) => {
+  (
+    { value, containerStyle, labelStyle, label, secureTextEntry: secret, ...props }: IBorderInput,
+    ref: React.Ref<any>,
+  ) => {
     // Label Top Animation
     const [top] = useState(new Animated.Value(13));
     // Label FontSize Animation
@@ -78,7 +81,7 @@ export default forwardRef(
     return (
       <Container>
         <Label allowFontScaling={false} style={[{ ...labelStyle }, { top, fontSize }]}>
-          로그인
+          {label}
         </Label>
         <Input
           {...props}
@@ -106,4 +109,5 @@ export default forwardRef(
 interface IBorderInput extends TextInputProps {
   containerStyle?: ViewStyle;
   labelStyle?: TextStyle;
+  label: string;
 }

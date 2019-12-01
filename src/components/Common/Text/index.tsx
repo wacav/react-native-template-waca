@@ -1,28 +1,43 @@
 import React, { useEffect, ReactNode } from 'react';
-import { TextStyle, TextProps } from 'react-native';
+import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
+import { GRAY_9 } from '../../../utils/color';
 
 interface ITextProps extends TextProps {
   children?: ReactNode;
-  small?: boolean;
-  big?: boolean;
 }
 
-const Text = styled.Text<ITextProps>`
-  font-size: ${props => (props.small ? 16 : props.big ? 24 : 18)};
-  color: #333;
+const BaseText = styled.Text<ITextProps>`
+  color: ${GRAY_9};
+  letter-spacing: -0.3;
+  font-size: 17px;
 `;
-/**
- * Text Components
- * @small 16
- * @big 24
- * @default 18
- */
-export default ({ children, small, big, ...props }: ITextProps) => {
+
+export const Text = ({ children, ...props }: ITextProps) => {
   useEffect(() => {}, []);
   return (
-    <Text allowFontScaling={false} small={small} big={big} {...props}>
+    <BaseText allowFontScaling={false} {...props}>
       {children}
-    </Text>
+    </BaseText>
   );
 };
+
+export const Heading = styled(Text)`
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: -1.5;
+`;
+export const Title = styled(Text)`
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: -0.5;
+`;
+export const SubTitle = styled(Text)`
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 0.25;
+`;
+export const Caption = styled(Text)`
+  font-size: 14px;
+  letter-spacing: 0.3;
+`;
