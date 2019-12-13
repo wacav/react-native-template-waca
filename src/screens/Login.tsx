@@ -4,13 +4,20 @@ import { Text, Heading, SubTitle, Caption, Title } from '../components/Common/Te
 import { TouchableOpacity, TextInput } from 'react-native';
 import BorderInput from '../components/Input/BorderInput';
 import useForm from 'react-hook-form';
-
+import Button from '../components/Button';
 export default ({ navigation }: { navigation: any }) => {
   const { register, handleSubmit, setValue } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   const cccc = (a: any) => {
+    setLoading(true);
     console.log(a);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
+
   return (
     <>
       <Row>
@@ -47,6 +54,11 @@ export default ({ navigation }: { navigation: any }) => {
         <TouchableOpacity onPress={handleSubmit(cccc)}>
           <Caption>Lorem ipsum dolor</Caption>
         </TouchableOpacity>
+      </Row>
+      <Row style={{ marginHorizontal: 15 }}>
+        <Button onPress={handleSubmit(cccc)} type={'primary'} loading={loading}>
+          힘내자
+        </Button>
       </Row>
     </>
   );

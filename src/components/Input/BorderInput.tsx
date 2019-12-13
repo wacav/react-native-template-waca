@@ -4,14 +4,13 @@ import { TextInputProps, ViewStyle, TextStyle, Animated, TextInput } from 'react
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Container = styled.View`
-  width: 100%;
+  flex: 1;
   height: 48px;
   border: 1px solid #333;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
   background-color: white;
-  margin-top: 10px;
 `;
 const Label = styled(Animated.Text)`
   position: absolute;
