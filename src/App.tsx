@@ -1,46 +1,49 @@
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { StatusBar } from 'react-native';
-import styled from 'styled-components/native';
-import { types } from 'mobx-state-tree';
+import { ThemeProvider } from 'styled-components/native';
+import useDarkMode from 'hooks/useDarkMode';
+import { createStackNavigator } from '@react-navigation/stack';
+import SplashScreen from 'screens/common/SplashScreen';
+import userInstance from 'services/common/user';
 import { observer } from 'mobx-react';
-
-const Todo = types
-  .model('Todo', {
-    id: 0,
-    content: '',
-  })
-  .actions((self) => ({
-    addTodos(content: string) {
-      self.id = 1;
-      self.content = content;
-    },
-  }));
-
-const todo = Todo.create();
+import Login from 'screens/auth/Login';
+import Join from 'screens/auth/Join';
+import { NavigationContainer } from '@react-navigation/native';
+const Stack = createStackNavigator();
 
 const App = () => {
+  const isDarkMode = useDarkMode();
+  const isDevMode = useMemo(() => __DEV__, []);
+  const [isLoaded, setLoaded] = useState(false);
+
+  const preLoaded = async () => {
+    try {
+      setLoaded(false);
+      setTimeout(() => {
+        setLoaded(true);
+      }, 500);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(userInstance.loading);
+  useEffect(() => {
+    preLoaded();
+  }, []);
+  if (!isLoaded) {
+    return <SplashScreen />;
+  }
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <View>
-        <Text>111</Text>
-        <Text>{todo.content}</Text>
-        <Button
-          onPress={() => {
-            todo.addTodos('123123');
-          }}>
-          <Text>눌러봐</Text>
-        </Button>
-      </View>
-    </>
+    <ThemeProvider theme={{}}>
+      <NavigationContainer>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <Stack.Navigator>
+          <Stack.Screen name={'Login'} component={Login} />
+          <Stack.Screen name={'Join'} component={Join} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
+
 export default observer(App);
-
-//#region style
-const View = styled.SafeAreaView``;
-
-const Text = styled.Text``;
-
-const Button = styled.TouchableOpacity``;
-//#endregion
