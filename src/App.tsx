@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import useDarkMode from 'hooks/useDarkMode';
@@ -9,11 +9,12 @@ import { observer } from 'mobx-react';
 import Login from 'screens/auth/Login';
 import Join from 'screens/auth/Join';
 import { NavigationContainer } from '@react-navigation/native';
+
+//
 const Stack = createStackNavigator();
 
 const App = () => {
   const isDarkMode = useDarkMode();
-  const isDevMode = useMemo(() => __DEV__, []);
   const [isLoaded, setLoaded] = useState(false);
 
   const preLoaded = async () => {
@@ -26,13 +27,15 @@ const App = () => {
       console.log(error);
     }
   };
-  console.log(userInstance.loading);
+
   useEffect(() => {
     preLoaded();
   }, []);
+
   if (!isLoaded) {
     return <SplashScreen />;
   }
+
   return (
     <ThemeProvider theme={{}}>
       <NavigationContainer>
